@@ -1,5 +1,5 @@
-import loaderUtils from 'loader-utils'
-import miniCSS from 'mini-css'
+var loaderUtils = require('loader-utils')
+var miniCSS = require('mini-css')
 
 var classReg = /(\S+)node_modules\/@sdp.nd\/([\w|-]+)\/(widget|page)-([\w|-]+)\/(\S+)/g
 module.exports = function (content) {
