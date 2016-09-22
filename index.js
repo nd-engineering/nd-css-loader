@@ -18,7 +18,7 @@ module.exports = function (content) {
       console.log(e)
     }
     // console.log(css.stringify(ast))
-    return content
+    return css.stringify(ast)
   } else {
     return content
   }
