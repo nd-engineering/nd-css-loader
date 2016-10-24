@@ -2,6 +2,8 @@ var loaderUtils = require('loader-utils')
 var css = require('css')
 // 不要匹配 page 因为page要控制 HTML BODY
 var classReg = /(\S+)node_modules\/@sdp.nd\/([\w|-]+)\/(widget-[\w|-]+)\/(\S+)/g
+// 要找出手淘的前缀 [data-dpr="\d"]
+var flexibleReg = /^\s*(\[data-dpr\s*=\s*["']\d+["']\])(.+)$/
 module.exports = function (content) {
   var widgetUrl = loaderUtils.getRemainingRequest(this)
   if (classReg.test(widgetUrl)) {
@@ -10,7 +12,12 @@ module.exports = function (content) {
     try {
       ast.stylesheet && ast.stylesheet.rules && ast.stylesheet.rules.forEach(rule => {
         rule.selectors && rule.selectors.forEach((selector, i) => {
-          rule.selectors[i] = `.${className} ${selector}`
+          var selectorMatch = selector.match(flexibleReg)
+          if (selectorMatch && selectorMatch.length === 3) {
+            rule.selectors[i] = `${selectorMatch[1]} .${className} ${selectorMatch[2]}` // [data-dpr="\d"] .className .selector
+          } else {
+            rule.selectors[i] = `.${className} ${selector}`
+          }
         })
       })
     } catch (e) {
