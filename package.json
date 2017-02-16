@@ -1,6 +1,6 @@
 {
   "name": "nd-css-loader",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -17,8 +17,8 @@
   },
   "homepage": "https://github.com/nd-engineering/nd-css-loader#readme",
   "dependencies": {
-    "css": "^2.2.1",
-    "loader-utils": "^0.2.15"
+    "loader-utils": "^0.2.15",
+    "postcss": "^5.2.13"
   },
   "devDependencies": {
     "babel-eslint": "^6.0.4",
